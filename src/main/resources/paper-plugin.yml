@@ -1,0 +1,15 @@
+name: svc-mute
+version: '1.0'
+main: org.zawarka.svcMute.SvcMute
+api-version: '1.18'
+authors: [ Zawarka03 ]
+
+permissions:
+  svcmute.muteall.allowvoice:
+    default: op
+
+dependencies:
+  server:
+    voicechat:
+      load: BEFORE
+      required: true
