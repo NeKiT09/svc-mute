@@ -3,6 +3,7 @@ package org.zawarka.svcMute.voice
 import de.maxhenkel.voicechat.api.VoicechatApi
 import de.maxhenkel.voicechat.api.VoicechatPlugin
 import de.maxhenkel.voicechat.api.events.EventRegistration
+import de.maxhenkel.voicechat.api.events.MicrophonePacketEvent
 import de.maxhenkel.voicechat.api.events.VoicechatServerStartedEvent
 
 class VoiceChat : VoicechatPlugin {
@@ -36,6 +37,7 @@ class VoiceChat : VoicechatPlugin {
      */
     override fun registerEvents(registration: EventRegistration) {
         registration.registerEvent(VoicechatServerStartedEvent::class.java, this::onServerStarted, 100)
+        registration.registerEvent(MicrophonePacketEvent::class.java, MicrophoneListener()::onMicrophonePacket, 100)
     }
 
     private fun onServerStarted(event: VoicechatServerStartedEvent) {

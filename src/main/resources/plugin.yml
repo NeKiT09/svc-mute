@@ -1,0 +1,45 @@
+name: svc-mute
+version: '1.0'
+main: org.zawarka.svcMute.SvcMute
+api-version: '1.18'
+authors: [ Zawarka03 ]
+depend: [voicechat]
+softdepend: [voicemessages]
+
+permissions:
+  svcmute.disable.voice:
+    default: false
+
+  svcmute.mute.command:
+    default: op
+  svcmute.mute.msg.see:
+    default: true
+
+  svcmute.unmute.command:
+    default: op
+  svcmute.unmute.msg.see:
+    default: true
+
+  svcmute.muteall.command:
+    default: op
+  svcmute.muteall.allow.voice:
+    default: op
+  svcmute.muteall.msg.see:
+    default: true
+
+  svcmute.admin.command:
+    default: op
+
+commands:
+  vmute:
+    usage: /vmute <player> <length> <reason>
+    permission: svcmute.mute.command
+  vunmute:
+    usage: /vunmute <player>
+    permission: svcmute.unmute.command
+  vmuteall:
+    usage: /vmuteall <on/off>
+    permission: svcmute.muteall.command
+  svcmute:
+    usage: /svcmute <reload>
+    permission: svcmute.admin.command

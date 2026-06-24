@@ -2,6 +2,10 @@
 
 secret.properties
 
+.kotlin/
+
+.gitignore
+
 .idea/
 
 *.iml

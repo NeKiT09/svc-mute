@@ -1,11 +1,13 @@
 import java.util.Properties
 import java.io.FileInputStream
+import java.io.InputStreamReader
+import java.nio.charset.StandardCharsets
 
 val secretsFile = rootProject.file("secret.properties")
 val secrets = Properties()
 
 if (secretsFile.exists()) {
-    secrets.load(FileInputStream(secretsFile))
+    secrets.load(InputStreamReader(FileInputStream(secretsFile), StandardCharsets.UTF_8))
 }
 
 plugins {
@@ -23,12 +25,19 @@ repositories {
         name = "papermc-repo"
     }
     maven("https://maven.maxhenkel.de/repository/public")
+
+    maven("https://maven.dimaskama.net/releases") {
+        name = "dimaskama"
+    }
 }
 
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.18.2-R0.1-SNAPSHOT")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     compileOnly("de.maxhenkel.voicechat:voicechat-api:2.6.0")
+    implementation("org.bstats:bstats-bukkit:3.2.1")
+
+    compileOnly("ru.dimaskama.voicemessages:voicemessages-api:0.0.1")
 }
 
 val targetJavaVersion = 17
@@ -39,6 +48,21 @@ kotlin {
 tasks.build {
     dependsOn("shadowJar")
     finalizedBy("copyPlugin")
+}
+
+tasks.shadowJar{
+    //configurations = project.configurations.runtimeClasspath.map { setOf(it) }
+
+    dependencies {
+        // Only merge bStats into the final jar, no other dependencies
+        exclude { it.moduleGroup != "org.bstats" }
+    }
+
+    // Relocate bStats into the plugin's package to avoid conflicts with other
+    // plugins using bStats
+    relocate("org.bstats", project.group.toString())
+
+    archiveClassifier.set("")
 }
 
 tasks.processResources {
@@ -53,7 +77,7 @@ tasks.processResources {
 tasks.register<Copy>("copyPlugin") {
     dependsOn(tasks.named("shadowJar"))
 
-    from(layout.buildDirectory.file("libs/${project.name}-${project.version}-all.jar"))
+    from(layout.buildDirectory.file("libs/${project.name}-${project.version}.jar"))
     into("${secrets["SERVER_PATH"]}/plugins") // путь к папке plugins
 }
 
