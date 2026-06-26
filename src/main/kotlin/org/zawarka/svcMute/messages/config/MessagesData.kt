@@ -1,7 +1,9 @@
 package org.zawarka.svcMute.messages.config
 
 import org.bukkit.configuration.file.FileConfiguration
+import org.bukkit.configuration.file.YamlConfiguration
 import org.zawarka.svcMute.SvcMute
+import java.io.File
 
 object MessagesData {
 
@@ -13,7 +15,7 @@ object MessagesData {
     fun loadFromConfig() {
         val plugin = SvcMute.instance;
 
-        val config = plugin.config
+        val config = YamlConfiguration.loadConfiguration(File(plugin.dataFolder, "config.yml"))
 
         for (type in MessageType.entries) {
             loadType(config, type)

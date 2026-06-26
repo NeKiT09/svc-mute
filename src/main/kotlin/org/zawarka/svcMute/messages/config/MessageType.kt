@@ -7,9 +7,6 @@ enum class MessageType(val path: String) {
     ACTIONBAR_MUTEALL("actionbar_muteall_msg"),
     ACTIONBAR_NOT_ALLOWED("actionbar_not_allowed_msg"),
 
-    PLAYER_MUTED("player_muted_msg"),
-    PLAYER_UNMUTED("player_unmuted_msg"),
-
     TIME_PERMANENT("time_permanent"),
     TIME_YEAR("time_year"),
     TIME_MONTH("time_month"),

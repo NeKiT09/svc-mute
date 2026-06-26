@@ -10,9 +10,9 @@ import org.zawarka.svcMute.commands.MuteAllCommand
 import org.zawarka.svcMute.commands.MuteCommand
 import org.zawarka.svcMute.commands.SvcmuteCommand
 import org.zawarka.svcMute.commands.UnmuteCommand
+import org.zawarka.svcMute.messages.config.MessagesData
 import org.zawarka.svcMute.mute.MuteStorage
 import org.zawarka.svcMute.voice.VoiceChat
-import org.zawarka.svcMute.voicemessages.VoiceMessagesHook
 
 
 class SvcMute : JavaPlugin() {
@@ -23,10 +23,14 @@ class SvcMute : JavaPlugin() {
 
     lateinit var voiceChat: VoiceChat private set
 
-    val storage = MuteStorage(this)
+    lateinit var storage: MuteStorage private set
 
     override fun onEnable() {
         instance = this
+
+        saveDefaultConfig()
+
+        storage = MuteStorage(this)
 
         val service = server.servicesManager.load(BukkitVoicechatService::class.java)
         if (service != null) {
@@ -39,13 +43,13 @@ class SvcMute : JavaPlugin() {
             return
         }
 
-        VoiceMessagesHook.init(this)
-
         regCommands()
         enableBStats()
 
         storage.init()
         storage.loadAll()
+
+        MessagesData.loadFromConfig()
     }
 
     private fun enableBStats(){

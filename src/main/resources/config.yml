@@ -8,6 +8,7 @@
 # ==============================================================================
 
 # General prefix added to the beginning of most plugin messages.
+# You can use {prefix} placeholder everywhere
 prefix: "&8[&6SVC-Mute&8]&r "
 
 # Message displayed in the player's actionbar when they try to chat while muted.
@@ -19,17 +20,6 @@ actionbar_muteall_msg: "&cYou are currently muted and cannot speak."
 
 # Message displayed in the player's actionbar when they try to chat with permission "svcmute.disable.voice".
 actionbar_not_allowed_msg: "&cYou are not allowed to speak."
-# ==============================================================================
-# ============================== PLAYER MUTE MESSAGES ==========================
-# ==============================================================================
-
-# Message sent directly to the player in chat when they get muted.
-# Placeholders: {target}, {time}, {reason}, {sender}
-player_muted_msg: "&cYou have been muted for &e{time}&c. Reason: &f{reason}"
-
-# Message sent directly to the player in chat when they get unmuted.
-# Placeholders: {target}, {sender}
-player_unmuted_msg: "&aYou have been unmuted."
 
 # ==============================================================================
 # ================================ TIME FORMATS ================================
@@ -55,27 +45,27 @@ time_second: "s"
 reason_empty: "&cViolation of server rules."
 
 # Message shown when the plugin configuration is reloaded.
-config_reload_msg: "&aConfiguration successfully reloaded."
+config_reload_msg: "{prefix}&aConfiguration successfully reloaded."
 
 # ==============================================================================
-# ============================= GLOBAL BROADCASTS ==============================
+# ============================= MUTE MESSAGES ==============================
 # ==============================================================================
 
 # Broadcasted to the server when a player is muted.
 # Placeholders: {target}, {time}, {reason}, {sender}
-mute_msg: "&c{target} &7has been muted for &e{time}&7. Reason: &f{reason}"
+mute_msg: "{prefix}&c{target} &7has been muted for &e{time}&7. Reason: &f{reason}"
 
 # Broadcasted to the server when a player is permanently muted.
 # Placeholders: {target}, {reason}, {sender}
-mute_msg_permanent: "&c{target} &7has been &4permanently muted&7. Reason: &f{reason}"
+mute_msg_permanent: "{prefix}&c{target} &7has been &4permanently muted&7. Reason: &f{reason}"
 
-# Message sent to the staff member who executed the mute command (confirmation).
-# Placeholders: {target}, {time}, {reason}
-mute_player_msg: "&aYou successfully muted &e{target} &afor &e{time}&a. Reason: &f{reason}"
+# Message sent directly to the player in chat when they get muted.
+# Placeholders: {target}, {time}, {reason}, {sender}
+mute_player_msg: "{prefix}&cYou have been muted for &e{time}&c. Reason: &f{reason}"
 
 # Error message when trying to mute a player who is already muted.
 # Placeholders: {target}
-mute_command_already_muted: "&c{target} is already muted."
+mute_command_already_muted: "{prefix}&c{target} is already muted."
 
 # ==============================================================================
 # =============================== UNMUTE MESSAGES ==============================
@@ -83,15 +73,15 @@ mute_command_already_muted: "&c{target} is already muted."
 
 # Broadcasted to the server when a player is unmuted.
 # Placeholders: {target}, {sender}
-unmute_global_msg: "&a{target} &7has been unmuted by &e{sender}&7."
+unmute_global_msg: "{prefix}&a{target} &7has been unmuted by &e{sender}&7."
 
 # Message sent to the player when they are unmuted.
 # Placeholders: {target}, {sender}
-unmute_player_msg: "&aYou have been unmuted by &e{sender}&a."
+unmute_player_msg: "{prefix}&aYou have been unmuted by &e{sender}&a."
 
 # Error message when trying to unmute a player who is not currently muted.
 # Placeholders: {target}
-unmute_command_already_unmuted: "&c{target} is not currently muted."
+unmute_command_already_unmuted: "{prefix}&c{target} is not currently muted."
 
 # ==============================================================================
 # ================================ MUTE ALL ====================================
@@ -99,8 +89,8 @@ unmute_command_already_unmuted: "&c{target} is not currently muted."
 
 # Broadcasted when the global voice chat is muted (muteall on).
 # Placeholders: {sender}
-muteall_command_global_msg_on: "&4[!] &cGlobal chat has been muted by &e{sender}&c."
+muteall_command_global_msg_on: "{prefix}&4[!] &cGlobal chat has been muted by &e{sender}&c."
 
 # Broadcasted when the global voice chat is unmuted (muteall off).
 # Placeholders: {sender}
-muteall_command_global_msg_off: "&a[!] &aGlobal chat has been unmuted by &e{sender}&a."
+muteall_command_global_msg_off: "{prefix}&a[!] &aGlobal chat has been unmuted by &e{sender}&a."

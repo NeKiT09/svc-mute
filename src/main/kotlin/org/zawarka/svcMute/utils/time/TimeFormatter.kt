@@ -12,7 +12,7 @@ open class TimeFormatter {
     }
 
     open fun format(totalSeconds: Long): String {
-        if(totalSeconds < 0) return getPermanentName()
+        if(totalSeconds <= 0) return getPermanentName()
         var remaining = totalSeconds
 
         // buildString - это идиоматичный и эффективный способ сборки строк в Kotlin
@@ -45,15 +45,15 @@ open class TimeFormatter {
 
             // Если время было 0, возвращаем "0 секунд"
             if (isEmpty()) {
-                append("0 ").append(getSecondsName(0))
+                append("0").append(getSecondsName(0))
             }
         }
     }
 
     private fun StringBuilder.appendIfNotEmpty(amount: Long, unitName: String) {
         if (amount > 0) {
-            if (isNotEmpty()) append(" ")
-            append(amount).append(" ").append(unitName)
+            if (isNotEmpty()) append("")
+            append(amount).append("").append(unitName)
         }
     }
 

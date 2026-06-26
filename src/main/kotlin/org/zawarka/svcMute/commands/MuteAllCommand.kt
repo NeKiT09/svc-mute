@@ -24,13 +24,15 @@ class MuteAllCommand : CommandExecutor, TabCompleter {
 
         if(args[0] == "on"){
             MuteManager.muteAll()
-            sendGlobalMessage(MessageValue(MessageType.MUTEALL_COMMAND_GLOBAL_MESSAGE_OFF, sender), "svcmute.muteall.msg.on")
+            sendGlobalMessage(MessageValue(MessageType.MUTEALL_COMMAND_GLOBAL_MESSAGE_ON, sender), "svcmute.muteall.msg.on")
+            return true
         }else if(args[0] == "off"){
             MuteManager.unMuteAll()
             sendGlobalMessage(MessageValue(MessageType.MUTEALL_COMMAND_GLOBAL_MESSAGE_OFF, sender), "svcmute.muteall.msg.off")
+            return true
         }
 
-        return true
+        return false
     }
 
     override fun onTabComplete(

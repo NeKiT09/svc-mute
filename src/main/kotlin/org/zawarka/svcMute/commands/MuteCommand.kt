@@ -45,21 +45,25 @@ class MuteCommand : CommandExecutor, TabCompleter {
             return false
         }
 
-        val reason: String = parts.reasonString
-            .apply {
-                if(isEmpty()) MessagesData.getMessageString(MessageType.REASON_EMPTY)
+        val reason: String = with(parts.reasonString) {
+                ifBlank {
+                    MessagesData.getMessageString(MessageType.REASON_EMPTY)
+                }
             }
+
+        println("reason:{$reason}")
 
         MuteManager.addMute(MuteInfo(target.uniqueId, length, reason))
 
+        target.player?.sendMessage(MessageValue(MessageType.MUTE_PLAYER_MESSAGE, sender, targetName, reason, length))
+
         if (length == 0L) {
             sendGlobalMessage(MessageValue(MessageType.MUTE_GLOBAL_MESSAGE_PERMANENT, sender, targetName, reason), "svcmute.mute.msg")
-            target.player?.sendMessage(MessageValue(MessageType.MUTE_PLAYER_MESSAGE, sender, targetName, reason))
 
             return true
         }
         sendGlobalMessage(MessageValue(MessageType.MUTE_GLOBAL_MESSAGE, sender, targetName, reason, length), "svcmute.mute.msg")
-        target.player?.sendMessage(MessageValue(MessageType.MUTE_PLAYER_MESSAGE, sender, targetName, reason, length))
+
 
         return true
     }
@@ -82,7 +86,7 @@ class MuteCommand : CommandExecutor, TabCompleter {
             }
         }
 
-        return listOf("*length>>>reason*")
+        return listOf("<time>", "<reason>")
     }
 
 
