@@ -8,7 +8,7 @@
 # ==============================================================================
 
 # General prefix added to the beginning of most plugin messages.
-# You can use {prefix} placeholder everywhere
+# You can use {prefix} placeholder anywhere
 prefix: "&8[&6SVC-Mute&8]&r "
 
 # Message displayed in the player's actionbar when they try to chat while muted.
