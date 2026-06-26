@@ -2,15 +2,14 @@
 Addon for Simple Voice Chat plugin, that allows you to mute players' voice.
 
 Requires [Simple Voice Chat](https://modrinth.com/plugin/simple-voice-chat) installed.
-# Features
 
 # Commands
 |Command|Definition|Permission
 |-|-|-
-|/vmute <player> <time> <reason>|Mute player's voice chat|svcmute.mute.command
-|/vunmute <player>|Unmute muted player|svcmute.unmute.command
+|/vmute </player> </time> </reason>|Mute player's voice chat|svcmute.mute.command
+|/vunmute </player>|Unmute muted player|svcmute.unmute.command
 |/vmuteall <on/off>|Enable/disable "muteall" mode, when nobody can use voice chat|svcmute.muteall.command
-|/svcmute <reload>|Reload plugin's config|svcmute.admin.command
+|/svcmute </reload>|Reload plugin's config|svcmute.admin.command
 
 # Permissions
 ### Mute
