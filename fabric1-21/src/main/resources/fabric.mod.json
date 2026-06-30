@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "svc-mute-fabric",
+  "version": "${version}",
+  "name": "svc-mute-fabric",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/svc-mute-fabric/icon.png",
+  "environment": "server",
+  "entrypoints": {
+    "main": [
+      "org.zawarka.svcMuteFabric.SvcMuteFabric"
+    ],
+    "voicechat": [
+      "org.zawarka.svcMuteFabric.voice.FabricVoiceChat"
+    ]
+  },
+  "mixins": [
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-language-kotlin": ">=${kotlin_loader_version}",
+    "fabric-api": "*",
+    "fabric-permissions-api-v0": "*",
+    "minecraft": "${minecraft_version}",
+    "voicechat_api": ">=2.6.0"
+  }
+}

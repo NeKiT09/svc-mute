@@ -1,12 +1,3 @@
-rootProject.name = "svc-mute"
-
-include(
-    "paper",
-    "core",
-    "fabric1-21",
-)
-
-
 pluginManagement {
     repositories {
         maven("https://maven.fabricmc.net/") {
@@ -15,4 +6,3 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
-
