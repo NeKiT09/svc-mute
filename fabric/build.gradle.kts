@@ -24,9 +24,22 @@ dependencies {
         "com.mojang:minecraft:${prop("minecraft_version")}"
     )
 
-    mappings(
-        "net.fabricmc:yarn:${prop("yarn_mappings")}:v2"
-    )
+    val mc = prop("minecraft_version")
+
+    if (mc.startsWith("26.")) {
+
+        mappings(
+            loom.layered {
+                officialMojangMappings()
+            }
+        )
+
+    } else {
+
+        mappings(
+            "net.fabricmc:yarn:${prop("yarn_mappings")}:v2"
+        )
+    }
 
     modImplementation(
         "net.fabricmc:fabric-loader:${prop("loader_version")}"
@@ -40,11 +53,11 @@ dependencies {
         "net.fabricmc:fabric-language-kotlin:${prop("kotlin_loader_version")}"
     )
 
-    modImplementation(include("net.kyori:adventure-platform-fabric:${prop("adventure_version")}")!!)
+    modImplementation("net.kyori:adventure-platform-fabric:${prop("adventure_version")}")
     include(implementation("org.xerial:sqlite-jdbc:3.46.1.3")!!)
 
     compileOnly("de.maxhenkel.voicechat:voicechat-api:2.6.0")
-    modImplementation("me.lucko:fabric-permissions-api:0.3.3")
+    modImplementation("me.lucko:fabric-permissions-api:${prop("permission_api_version")}")
 }
 
 tasks.processResources {

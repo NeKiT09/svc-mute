@@ -16,10 +16,21 @@ stonecutter {
     create(rootProject) {
 
         version("1.21")
-        version("1.21.1")
-        version("1.21.2")
-        version("1.21.3")
-        version("1.21.4")
+        version("26.1")
+        //version("1.21")
+        //version("1.21.1")
+        //version("1.21.2")
+        //version("1.21.3")
+        //version("1.21.4")
+        //version("1.21.5")
+        //version("1.21.6")
+        //version("1.21.7")
+        //version("1.21.8")
+        //version("1.21.9")
+        //version("1.21.10")
+        //version("1.21.11")
+
+        //version("26.2")
 
         vcsVersion = "1.21"
     }

@@ -18,7 +18,7 @@ actionbar_mute_msg: "&cYou are currently muted and cannot speak."
 # Message displayed in the player's actionbar when they try to chat while "muteall" is enabled.
 actionbar_muteall_msg: "&cYou are currently muted and cannot speak."
 
-# Message displayed in the player's actionbar when they try to chat with permission "svcmute.disable.voice".
+# Message displayed in the player's actionbar when they try to chat without permission "svcmute.enable.voice".
 actionbar_not_allowed_msg: "&cYou are not allowed to speak."
 
 # ==============================================================================
