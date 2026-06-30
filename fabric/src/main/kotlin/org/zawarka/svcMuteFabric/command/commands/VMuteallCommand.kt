@@ -2,26 +2,15 @@ package org.zawarka.svcMuteFabric.command.commands
 
 import com.mojang.brigadier.arguments.StringArgumentType
 import com.mojang.brigadier.builder.LiteralArgumentBuilder
-import com.mojang.brigadier.builder.RequiredArgumentBuilder
 import com.mojang.brigadier.exceptions.CommandSyntaxException
-import com.mojang.brigadier.exceptions.SimpleCommandExceptionType
-import me.lucko.fabric.api.permissions.v0.Permissions
-import net.kyori.adventure.sound.SoundStop.source
 import net.minecraft.command.CommandSource
-import net.minecraft.command.EntitySelector
-import net.minecraft.command.argument.EntityArgumentType
 import net.minecraft.server.command.CommandManager
 import net.minecraft.server.command.CommandManager.literal
 import net.minecraft.server.command.ServerCommandSource
-import net.minecraft.text.Text
 import org.zawarka.svcMuteCore.MutePermission
 import org.zawarka.svcMuteCore.commands.MuteAllCommand
-import org.zawarka.svcMuteCore.commands.UnmuteCommand
-import org.zawarka.svcMuteCore.data.command.ICommandExecutor
-import org.zawarka.svcMuteCore.data.command.ITabCompleter
 import org.zawarka.svcMuteFabric.SvcMuteFabric.Companion.instance
 import org.zawarka.svcMuteFabric.command.ICommand
-import org.zawarka.svcMuteFabric.data.FabricPlayerService
 import org.zawarka.svcMuteFabric.data.commands.toFabricCommandSender
 import org.zawarka.svcMuteFabric.utils.check
 

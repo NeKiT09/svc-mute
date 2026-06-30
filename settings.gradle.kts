@@ -1,11 +1,5 @@
 rootProject.name = "svc-mute"
 
-include(
-    "paper",
-    "core",
-    "fabric1-21",
-)
-
 
 pluginManagement {
     repositories {
@@ -16,3 +10,16 @@ pluginManagement {
     }
 }
 
+plugins {
+    kotlin("jvm") version "2.4.0" apply false
+    id("com.gradleup.shadow") version "9.0.0-beta4" apply false
+}
+
+include(
+    "paper",
+    "core",
+)
+
+includeBuild("fabric"){
+
+}

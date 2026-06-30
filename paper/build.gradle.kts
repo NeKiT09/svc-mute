@@ -20,7 +20,7 @@ plugins {
 }
 
 group = "org.zawarka"
-version = "1.1"
+version = rootProject.property("mod_version")!!
 val prevVersion = "1.0"
 val projectName = "svc-mute"
 

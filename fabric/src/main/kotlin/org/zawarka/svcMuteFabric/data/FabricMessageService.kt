@@ -1,11 +1,9 @@
 package org.zawarka.svcMuteFabric.data
 
-import me.lucko.fabric.api.permissions.v0.Permissions
 import net.kyori.adventure.text.Component
 import net.minecraft.server.command.ServerCommandSource
 import net.minecraft.server.network.ServerPlayerEntity
 import org.zawarka.svcMuteCore.MutePermission
-import org.zawarka.svcMuteCore.data.Permission
 import org.zawarka.svcMuteCore.messages.MessageService
 import org.zawarka.svcMuteCore.messages.MessageValue
 import org.zawarka.svcMuteFabric.SvcMuteFabric
