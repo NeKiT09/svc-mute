@@ -72,6 +72,7 @@ tasks.shadowJar{
 
     dependencies {
         // Only merge bStats into the final jar, no other dependencies
+
     }
 
     // Relocate bStats into the plugin's package to avoid conflicts with other
@@ -79,7 +80,7 @@ tasks.shadowJar{
     relocate("org.bstats", project.group.toString())
 
     archiveClassifier.set("")
-    archiveFileName.set("${projectName}-${project.version}.jar")
+    archiveFileName.set("${projectName}-paper-${project.version}.jar")
 }
 
 

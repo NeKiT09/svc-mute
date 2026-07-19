@@ -24,17 +24,42 @@ class MicrophoneListener(val muteManager: MuteManager, val playerService: IPlaye
                 return
             }
 
-            if (muteManager.isMuted(uuid)) {
+            val container = muteManager.mutes;
+
+            if (container.isMuted(uuid)) {
                 event.cancel()
 
-                val mute = muteManager.getMute(player.uniqueId)!!
+                val mute = container.getMute(player.uniqueId)!!
                 if(mute.isExpired()){
-                    muteManager.removeMute(uuid)
+                    container.removeMute(uuid)
                 }else {
                     player.sendActionbar(MessageValue(MessageType.ACTIONBAR_MUTE, time = mute.remainSeconds()))
                     return
                 }
             }
+
+//            val groupContainer = muteManager.groupMutes;
+//
+//            val group = connection.group
+//
+//            if(group != null) {
+//                if (groupContainer.isMuted(uuid)) {
+//                    event.cancel()
+//
+//                    val mute = groupContainer.getMute(group.id)!!
+//                    if (mute.isExpired()) {
+//                        groupContainer.removeMute(uuid)
+//                    } else {
+//                        player.sendActionbar(
+//                            MessageValue(
+//                                MessageType.ACTIONBAR_GROUP_MUTE,
+//                                time = mute.remainSeconds()
+//                            )
+//                        )
+//                        return
+//                    }
+//                }
+//            }
 
             if (muteManager.isAllMuted) {
                 if (!player.hasPermission(MutePermission.MUTEALL_ALLOW_VOICE)) {

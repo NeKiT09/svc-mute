@@ -44,7 +44,6 @@ class FabricMessageService : MessageService() {
     }
 
     override fun sendGlobalMessage(value: MessageValue, permission: MutePermission) {
-        println("send global message ${value.type}")
         for (player in SvcMuteFabric.instance.server.playerManager.playerList) {
             if(!player.hasPermission(permission)) continue
             sendMessage(player, value)

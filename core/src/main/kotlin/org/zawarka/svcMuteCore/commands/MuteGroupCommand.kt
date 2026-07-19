@@ -3,7 +3,6 @@ package org.zawarka.svcMuteCore.commands
 import org.zawarka.svcMuteCore.MutePermission
 import org.zawarka.svcMuteCore.data.command.MuteCommandSender
 import org.zawarka.svcMuteCore.data.command.ICommandExecutor
-import org.zawarka.svcMuteCore.data.IPlayerService
 import org.zawarka.svcMuteCore.data.command.ITabCompleter
 import org.zawarka.svcMuteCore.messages.MessageService
 import org.zawarka.svcMuteCore.messages.MessageValue
@@ -13,8 +12,9 @@ import org.zawarka.svcMuteCore.mute.MuteContainer
 import org.zawarka.svcMuteCore.mute.MuteInfo
 import org.zawarka.svcMuteCore.utils.time.TimeParser
 import org.zawarka.svcMuteCore.utils.time.TimeTextSplitter
+import org.zawarka.svcMuteCore.voice.GroupStorage
 
-class MuteCommand(val container: MuteContainer, val messageService: MessageService, val playerService: IPlayerService, val messagesData: MessagesData) : ICommandExecutor,
+class MuteGroupCommand(val container: MuteContainer, val messageService: MessageService, val groupStorage: GroupStorage, val messagesData: MessagesData) : ICommandExecutor,
     ITabCompleter {
     override fun onCommand(
         sender: MuteCommandSender,
@@ -24,15 +24,27 @@ class MuteCommand(val container: MuteContainer, val messageService: MessageServi
             return false
         }
 
-        val target = playerService.getPlayer(args[0])!!
-        val targetName = target.name
+        val group = groupStorage.get(args[0])
 
-        if (container.isMuted(target.uniqueId)) {
+        if(group == null) {
             sender.sendMessage(
                 MessageValue(
                     MessageType.MUTE_COMMAND_ALREADY_MUTED,
                     sender.name,
-                    targetName
+                    args[0]
+                )
+            )
+            return false
+        }
+
+        val groupName = group.name
+
+        if (container.isMuted(group.id)) {
+            sender.sendMessage(
+                MessageValue(
+                    MessageType.MUTE_COMMAND_ALREADY_MUTED,
+                    sender.name,
+                    groupName
                 )
             )
             return true
@@ -53,25 +65,14 @@ class MuteCommand(val container: MuteContainer, val messageService: MessageServi
                 }
             }
 
-        container.addMute(MuteInfo(target.uniqueId, length, reason))
-
-
-        target.sendMessage(
-            MessageValue(
-                MessageType.MUTE_PLAYER_MESSAGE,
-                sender.name,
-                targetName,
-                reason,
-                length
-            )
-        )
+        container.addMute(MuteInfo(group.id, length, reason))
 
         if (length == 0L) {
             messageService.sendGlobalMessage(
                 MessageValue(
-                    MessageType.MUTE_GLOBAL_MESSAGE_PERMANENT,
+                    MessageType.MUTE_GROUP_GLOBAL_MESSAGE_PERMANENT,
                     sender.name,
-                    targetName,
+                    groupName,
                     reason
                 ), MutePermission.MUTE_MSG_SEE)
 
@@ -79,9 +80,9 @@ class MuteCommand(val container: MuteContainer, val messageService: MessageServi
         }
         messageService.sendGlobalMessage(
             MessageValue(
-                MessageType.MUTE_GLOBAL_MESSAGE,
+                MessageType.MUTE_GROUP_GLOBAL_MESSAGE,
                 sender.name,
-                targetName,
+                groupName,
                 reason,
                 length
             ), MutePermission.MUTE_MSG_SEE)
@@ -90,7 +91,7 @@ class MuteCommand(val container: MuteContainer, val messageService: MessageServi
     }
 
     override fun tabComplete(): List<List<String>> {
-        val playerList = playerService.getOnlinePlayers().map { if(!container.isMuted(it.uniqueId)) it.name else "" }
+        val playerList = groupStorage.groups().map { if(!container.isMuted(it.id)) it.name else "" }
 
         return listOf(playerList, listOf("<time>", "<reason>"))
     }

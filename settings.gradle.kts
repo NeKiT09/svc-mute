@@ -17,9 +17,13 @@ plugins {
 
 include(
     "paper",
-    "core",
+    "core"
 )
 
 includeBuild("fabric"){
+
+}
+
+includeBuild("neoforge"){
 
 }

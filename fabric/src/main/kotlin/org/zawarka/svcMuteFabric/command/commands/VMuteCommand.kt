@@ -20,7 +20,7 @@ import org.zawarka.svcMuteFabric.utils.check
 class VMuteCommand : ICommand {
 
     override fun literal(): LiteralArgumentBuilder<ServerCommandSource> {
-        val svcMute = MuteCommand(instance.core.muteManager, instance.core.messageService, FabricPlayerService, instance.core.messagesData)
+        val svcMute = MuteCommand(instance.core.muteManager.mutes, instance.core.messageService, FabricPlayerService, instance.core.messagesData)
 
         return literal("vmute").requires { source -> MutePermission.MUTE_COMMAND.check(source) }
             .then(CommandsBuilder.targetPlayerBuilder(svcMute, svcMute)

@@ -19,8 +19,10 @@ import org.zawarka.svcMuteCore.messages.config.MessagesData
 import org.zawarka.svcMuteCore.mute.MuteManager
 import org.zawarka.svcMuteCore.mute.MuteStorage
 import org.zawarka.svcMuteCore.SvcMuteCore
+import org.zawarka.svcMuteCore.commands.MuteGroupCommand
 import org.zawarka.svcMuteCore.messages.MessageService
 import org.zawarka.svcMuteCore.utils.time.TimeConfigFormatter
+import org.zawarka.svcMuteCore.voice.VoiceChat
 import java.io.File
 
 class SvcMute() : JavaPlugin() {
@@ -60,11 +62,14 @@ class SvcMute() : JavaPlugin() {
     }
 
     private fun regCommands(){
-        val vmute = MuteCommand(core.muteManager, core.messageService, PlayerService, core.messagesData)
+        val vmute = MuteCommand(core.muteManager.mutes, core.messageService, PlayerService, core.messagesData)
         registerCommand("vmute", vmute, vmute)
 
-        val vunmute = UnmuteCommand(core.muteManager, core.messageService, PlayerService)
+        val vunmute = UnmuteCommand(core.muteManager.mutes, core.messageService, PlayerService)
         registerCommand("vunmute", vunmute, vunmute)
+
+        val vgroupmute = MuteGroupCommand(core.muteManager.mutes, core.messageService, VoiceChat.groupStorage, core.messagesData)
+        registerCommand("vgroupmute", vgroupmute, vgroupmute)
 
         val muteall = MuteAllCommand(core.muteManager, core.messageService)
         registerCommand("vmuteall", muteall, muteall)

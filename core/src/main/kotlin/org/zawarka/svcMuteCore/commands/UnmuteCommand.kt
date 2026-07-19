@@ -8,9 +8,10 @@ import org.zawarka.svcMuteCore.data.command.ITabCompleter
 import org.zawarka.svcMuteCore.messages.MessageService
 import org.zawarka.svcMuteCore.messages.MessageValue
 import org.zawarka.svcMuteCore.messages.config.MessageType
+import org.zawarka.svcMuteCore.mute.MuteContainer
 import org.zawarka.svcMuteCore.mute.MuteManager
 
-class UnmuteCommand(val muteManager : MuteManager, val messageService: MessageService, val playerService: IPlayerService) : ICommandExecutor,
+class UnmuteCommand(val container: MuteContainer, val messageService: MessageService, val playerService: IPlayerService) : ICommandExecutor,
     ITabCompleter {
 
     override fun onCommand(
@@ -24,10 +25,10 @@ class UnmuteCommand(val muteManager : MuteManager, val messageService: MessageSe
         val target = playerService.getPlayer(args[0])!!
         val targetName = target.name
 
-        if (!muteManager.isMuted(target.uniqueId)) {
+        if (!container.isMuted(target.uniqueId)) {
             sender.sendMessage(
                 MessageValue(
-                    MessageType.UNMUTE_COMMAND_PLAYER_ALREADY_UNMUTED,
+                    MessageType.UNMUTE_COMMAND_ALREADY_UNMUTED,
                     sender.name,
                     targetName
                 )
@@ -35,7 +36,7 @@ class UnmuteCommand(val muteManager : MuteManager, val messageService: MessageSe
             return true
         }
 
-        muteManager.removeMute(target.uniqueId)
+        container.removeMute(target.uniqueId)
 
         messageService.sendGlobalMessage(
             MessageValue(
@@ -55,7 +56,7 @@ class UnmuteCommand(val muteManager : MuteManager, val messageService: MessageSe
     }
 
     override fun tabComplete(): List<List<String>> {
-        val list = playerService.getOnlinePlayers().map { if(muteManager.isMuted(it.uniqueId)) it.name else "" }
+        val list = playerService.getOnlinePlayers().map { if(container.isMuted(it.uniqueId)) it.name else "" }
 
         return listOf(list)
     }

@@ -2,11 +2,15 @@ package org.zawarka.svcMuteCore.voice
 
 import de.maxhenkel.voicechat.api.VoicechatApi
 import de.maxhenkel.voicechat.api.VoicechatPlugin
+import de.maxhenkel.voicechat.api.events.CreateGroupEvent
 import de.maxhenkel.voicechat.api.events.EventRegistration
 import de.maxhenkel.voicechat.api.events.MicrophonePacketEvent
+import de.maxhenkel.voicechat.api.events.RemoveGroupEvent
 import de.maxhenkel.voicechat.api.events.VoicechatServerStartedEvent
 import org.zawarka.svcMuteCore.SvcMuteCore
 import org.zawarka.svcMuteCore.data.IPlayerService
+import org.zawarka.svcMuteCore.messages.config.MessagesData
+import org.zawarka.svcMuteCore.mute.MuteStorage
 
 abstract class VoiceChat : VoicechatPlugin {
 
@@ -17,6 +21,8 @@ abstract class VoiceChat : VoicechatPlugin {
 
         lateinit var core: SvcMuteCore private set
         lateinit var playerService: IPlayerService private set
+
+        val groupStorage = GroupStorage()
     }
 
     fun init(core: SvcMuteCore, playerService: IPlayerService){
@@ -48,6 +54,11 @@ abstract class VoiceChat : VoicechatPlugin {
     override fun registerEvents(registration: EventRegistration) {
         registration.registerEvent(VoicechatServerStartedEvent::class.java, this::onServerStarted, 100)
         registration.registerEvent(MicrophonePacketEvent::class.java, MicrophoneListener(core.muteManager, playerService)::onMicrophonePacket, 100)
+
+        val groupListener = GroupListener()
+
+        //registration.registerEvent(CreateGroupEvent::class.java, groupListener::onGroupCreated, -100)
+        //registration.registerEvent(RemoveGroupEvent::class.java, groupListener::onGroupRemoved, -100)
     }
 
     private fun onServerStarted(event: VoicechatServerStartedEvent) {

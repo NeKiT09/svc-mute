@@ -10,6 +10,7 @@ import java.io.File
 class SvcMuteCore {
 
     lateinit var storage: MuteStorage
+    //lateinit var groupStorage: MuteStorage
 
     lateinit var muteManager: MuteManager
 
@@ -21,10 +22,16 @@ class SvcMuteCore {
 
     fun init(dataFolder: File, messageService: MessageService) {
         muteManager = MuteManager()
-        storage = MuteStorage(muteManager, dataFolder)
+        storage = MuteStorage(muteManager, muteManager.mutes, dataFolder)
+
+        //groupStorage = MuteStorage(muteManager, muteManager.groupMutes, dataFolder, "groupmutes")
+        muteManager.init(storage, storage)
 
         storage.init()
         storage.loadAll()
+
+        //groupStorage.init()
+        //groupStorage.loadAll()
 
         messagesData = MessagesData(File(dataFolder, "config.yml"))
 
@@ -34,5 +41,10 @@ class SvcMuteCore {
 
         this.messageService = messageService
         this.messageService.init(messagesData)
+    }
+
+    fun saveAll(){
+        storage.saveAll()
+        //groupStorage.saveAll()
     }
 }

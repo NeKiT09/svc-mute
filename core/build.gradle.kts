@@ -9,6 +9,8 @@ repositories {
 
 dependencies {
     compileOnly("de.maxhenkel.voicechat:voicechat-api:2.6.0")
+
+    compileOnly("org.jetbrains.kotlin:kotlin-stdlib")
 }
 
 val targetJavaVersion = 17

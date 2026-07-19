@@ -8,14 +8,14 @@ import java.util.UUID
 
 class MuteStorage(
     private val muteManager: MuteManager,
-    private val dataFolder: File
-
+    private val container: MuteContainer,
+    private val dataFolder: File,
+    fileName: String = "mutes",
 ) {
-    private val dbFile = File(dataFolder, "mutes.db")
+    private val dbFile = File(dataFolder, "$fileName.db")
     private val jdbcUrl = "jdbc:sqlite:${dbFile.absolutePath}"
 
     fun init() {
-        muteManager.init(this)
         dataFolder.mkdirs()
         dbFile.parentFile?.mkdirs()
         createTables()
@@ -107,7 +107,9 @@ class MuteStorage(
             }
 
             val allMuted = loadGlobalState(connection)
-            muteManager.replaceAll(loadedMutes, allMuted)
+            muteManager.muteAll(allMuted)
+
+            container.replaceAll(loadedMutes)
         }
     }
 
@@ -209,7 +211,7 @@ class MuteStorage(
                 permanent = excluded.permanent
             """.trimIndent()
         ).use { statement ->
-            for (info in muteManager.allMutes().mapNotNull { muteManager.getMute(it) }) {
+            for (info in container.allMutes().mapNotNull { container.getMute(it) }) {
                 bindMute(statement, info)
                 statement.addBatch()
             }

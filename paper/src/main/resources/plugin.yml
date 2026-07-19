@@ -5,6 +5,8 @@ api-version: '1.18'
 authors: [ Zawarka03 ]
 depend: [voicechat]
 
+folia-supported: true
+
 permissions:
   svcmute.enable.voice:
     default: true
